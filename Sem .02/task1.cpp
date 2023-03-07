@@ -5,7 +5,7 @@ const int MAX_SIZE = 1000;
 
 int main()
 {
-	std::ifstream file("task1");
+	std::ifstream file("task1.cpp");
 
 	if (!file.is_open())
 	{
