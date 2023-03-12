@@ -1,64 +1,133 @@
-# Член-функции. Конструктори и деструктор. Модификатори за достъп. Капсулация.
+# Класове. Член-функции. Модификатори за достъп. Капсулация.
 
-## Член-функции.
-Член-функциите са функции, които работят с член-данните на обекта от дадена структура.
- ```c++
-struct Point
+```c++
+struct DynamicArray
 {
-	int x;
-	int y;
-};
-bool isInFirstQuadrant(const Point& p)
-{
-	return p.x >= 0 && p.y >= 0;
-}
-int main()
-{
-	Point p1 = {3, 4};
-	Point p2 = {-9, 8};
-	cout << isInFirstQuadrant(p1) << endl;
-	cout << isInFirstQuadrant(p2) << endl;
-}
- ```
- 
- Може функцията да бъде член-функция:
- ```c++
-struct Point
-{
-
-	int x;
-	int y
-
-	bool isInFirstQuadrant()
-	{
-		return x >= 0 && y >= 0;
-	}
-	
+	int* data;
+	size_t used;
+	size_t allocated;
 };
 
+void initialise(DynamicArray& da)
+{
+	da.data = nullptr;
+	da.used = 0;
+	da.allocated = 0;
+}
+void free(DynamicArray& da)
+{
+	delete[] da.data;
+	da.data = nullptr;
+	da.used = 0;
+	da.allocated = 0;
+}
+void allocate(DynamicArray& da, size_t size)
+{
+	da.data = new int[size];
+	da.used = 0;
+	da.allocated = size;
+}
+
+int& at(DynamicArray& da, size_t index)
+{
+	assert(index < da.used);
+	return da.data[index];
+}
+
 int main()
 {
-	Point p1 = {3, 4};
-	Point p2 = {-9, 8};
-	cout << p1.isInFirstQuadrant() << endl;
-	cout << p2.isInFirstQuadrant() << endl;
+	DynamicArray da;
+	initialise(da);
 }
- ```
-#  
-**Член-функциите**:
+```
+Горният програмен фрагмент е напълно валиден.  
+Но всички написани функции се отнасят за структурата DynamicArray. Не можем ли да ги "групираме" по някакъв начин?  
 
- - Работят с член-данните на класа.
- -  Извикват се с обект на класа
- 
- - Компилаторът преобразува всяка **член-функция** на дадена структура в
-   обикновена функция с уникално име и един допълнителен параметър
-   –**указател към обекта**.
+## Член-функции
+
+- Функции, които **не съществуват глобално**.
+- Имената им са от вида **\<StructName\>::\<memberFunctionName\>**
+- **Работят с член-данните на инстанцията/обекта** от дадена структура/клас.
+- **Извикват се с инстанция/обект** на структурата/класа.
+- Компилаторът преобразува всяка член-функция на дадена структура/клас в обикновена функция с уникално име и един допълнителен параметър –**указател към инстанцията/обекта**.
 
 **Константни член-функции**:
 
- - Не променят член-данните на структурата.
- -  Оказва се чрез записването на ключовата  дума **const** в декларацията и в края на заглавието в дефиницията им
- -  Могат да се извикват от константни обекти.
+- **Не променят член-данните** на структурата/класа.
+- Обозначават се чрез записване на ключовата дума **const**  в декларацията и в края на заглавието в дефиницията им.
+- Могат да се извикват от **константни обекти**.
+
+```c++
+struct DynamicArray
+{
+	int* data;
+	size_t used;
+	size_t allocated;
+
+	void initialise() // inline function
+	{
+		data = nullptr;
+		used = 0;
+		allocated = 0;
+	}
+	void free()
+	{
+		delete[] data;
+		data = nullptr;
+		used = 0;
+		allocated = 0;
+	}
+	void allocate(size_t size)
+	{
+		data = new int[size];
+		used = 0;
+		allocated = size;
+	}
+
+	int& at(size_t index)
+	{
+		assert(index < used);
+		return data[index];
+	}
+};
+
+int main()
+{
+	DynamicArray da;
+	da.initialise();
+	da.allocate(100);
+	da.at(5) = 22;
+}
+```
+
+:bangbang: Инстанция на структурата DynamicArray заема място в паметта колкото за три променливи (data, used, allocated) :bangbang:  
+Функциите живеят като глобални (**само на едно място**).  
+
+Всяка член-функция, скрито от нас, получава като аргумент специална променлива (**this**) - **пойнтър към текущия обект, с който функцията работи**.  
+Можем да си мислим, че нещата изглеждат така:  
+(Долният програмен фрагмент няма да се компилира! Той е за нашата интуиция !!)  
+```c++
+{
+	// ...
+	void initialise(DynamicArray* this)
+	{
+		this->data = nullptr;
+		this->used = 0;
+		this->allocated = 0;
+	}
+	// ...
+};
+	
+int main()
+{
+	DynamicArray da;
+	DynamicArray::initialise(&da);
+	// ...
+}
+```
+
+Сега, искаме "външният свят" да **няма достъп до всички член-данни и методи на даден клас**. Това е така, защото тяхната промяна може да доведе до неочаквано поведение на нашата програма. Как можем да го постигнем?  
+
 ## Конструктори и деструктор.
 
 **Жизнен цикъл на обект**:
