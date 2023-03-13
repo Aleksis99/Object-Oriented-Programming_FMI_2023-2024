@@ -16,6 +16,7 @@ struct Triangle
 	int x3;
 	int y3;
 };
+
 int getPer(const Triangle& t)
 {
 	return
@@ -35,6 +36,7 @@ struct Point
 		return sqrt((x-other.x)*(x-other.x)+(y-other.y)*(y-other.y));
 	}
 };
+
 struct Triangle
 {
 	Point p1;
