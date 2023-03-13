@@ -69,22 +69,22 @@ struct Test
 
 	Test()
 	{
-	cout << "Default constructor" <<endl;
+		cout << "Default constructor" <<endl;
 	}
 
 	Test(const Test& other)
 	{
-	cout << "Copy constructor" <<endl;
+		cout << "Copy constructor" <<endl;
 	}
 
 	Test& operator=(const Test& other)
 	{
-	cout << "operator=" <<endl;
+		cout << "operator=" <<endl;
 	}
 
 	~Test()
 	{
-	cout << "Destructor" <<endl;
+		cout << "Destructor" <<endl;
 	}
 };
 
