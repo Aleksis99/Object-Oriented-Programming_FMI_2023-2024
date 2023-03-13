@@ -31,6 +31,7 @@ struct Point
 {
 	int x;
 	int y
+	
 	double getDistTo(const Point& other)
 	{
 		return sqrt((x-other.x)*(x-other.x)+(y-other.y)*(y-other.y));
