@@ -178,9 +178,9 @@ int main()
 {
 	Date date(2023, 3, 14);
 
-    	date.print();
+	date.print();
 
-	std::cout << date.getDayOfWeek();
+	std::cout << date.getDayOfWeek(); // 2
 }
 ```
 
