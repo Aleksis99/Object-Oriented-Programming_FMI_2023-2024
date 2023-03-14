@@ -208,7 +208,6 @@ int main()
 
     std::cout << myEvent.getDayOfWeek() << std::endl; // 2
     
-
     myEvent.print();   
 }
 ```
