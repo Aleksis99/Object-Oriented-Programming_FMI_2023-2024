@@ -196,4 +196,19 @@ int main()
 
 - Член-функция за *принтиране на събитието*.
 
+ ```c++
 
+int main()
+{
+    Time time(12, 30, 45);
+
+    Date date(2023, 3, 14);
+
+    Event myEvent("My event", date, time);
+
+    std::cout << myEvent.getDayOfWeek() << std::endl; // 2
+    
+
+    myEvent.print();   
+}
+```
