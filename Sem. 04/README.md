@@ -64,58 +64,60 @@ int getPer(const Triangle& t)
 
 using namespace std;
 
-struct Test 
+struct Test
 {
 
-	Test()
-	{
-		cout << "Default constructor" <<endl;
-	}
+    Test()
+    {
+        cout << "Default constructor" << endl;
+    }
 
-	Test(const Test& other)
-	{
-		cout << "Copy constructor" <<endl;
-	}
+    Test(const Test& other)
+    {
+        cout << "Copy constructor" << endl;
+    }
 
-	Test& operator=(const Test& other)
-	{
-		cout << "operator=" <<endl;
-	}
+    Test& operator=(const Test& other)
+    {
+        cout << "operator=" << endl;
 
-	~Test()
-	{
-		cout << "Destructor" <<endl;
-	}
+        return *this;
+    }
+
+    ~Test()
+    {
+        cout << "Destructor" << endl;
+    }
 };
 
 void f(Test object)
 {
-	//do Stuff
+    //do Stuff
 }
 
 
 void g(Test& object)
 {
-	//do Stuff
+    //do Stuff
 }
 int main()
 {
     Test t; //Default constructor;
-	
-    Test t2(t)  // Copy constructor
-    Test t3(t2) // Copy constructor	
-    Test t2 = t3 // operator=
-    Test t3 = t //  operator=
-    
+
+    Test t2(t);  // Copy constructor
+    Test t3(t2); // Copy constructor	
+    t2 = t3; // operator=
+    t3 = t; //  operator=
+
     Test newTest = t; //Copy constructor !!!!!!!
-	
+
     f(t); // Copy constructor	
     g(t); // nothing. We are passing it as a reference. We are not copying it!
-    
+
     Test* ptr = new Test();  // Default constructor // we create a new object in the dynamic memory. The destructor must be invoked explicitly  (with delete)
-	
+
     delete ptr; // Destructor	
-	 
+
 } //Destructor Destructor Destructor Destructor
 
  ```
