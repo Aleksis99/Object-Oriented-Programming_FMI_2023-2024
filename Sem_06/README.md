@@ -188,7 +188,7 @@ int main()
 	ComplexNumber c2;
 	std::cin >> c2;
 
-	ComplexNumber result = c2 / c1;
+	ComplexNumber result = c2 * c1;
 	std::cout << result << std::endl;
 }
 ```
