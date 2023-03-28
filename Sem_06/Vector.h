@@ -23,7 +23,7 @@ public:
 
 	int getSize() const;
 
-	//int operator[](int i) const;
+	int operator[](int i) const;
 	int& operator[](int i);
 
 	void resize(int capacity);
