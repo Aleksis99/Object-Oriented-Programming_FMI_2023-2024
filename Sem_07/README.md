@@ -160,6 +160,8 @@ int main()
 - Вземане на стойноста на даден код
 
 ```c++
+int main()
+{
 	Dictionary dict;
 
 	dict.add(3, "No");
@@ -173,4 +175,5 @@ int main()
 	std::cout << dict.get(1); // Later
 	
 	std::cout << dict[1]; // true
+}
 ```
