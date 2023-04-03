@@ -105,7 +105,7 @@ int main()
 class A;
 int main()
 {
-	A* arr[10]; //5 empty pointers.
+	A* arr[5]; //5 empty pointers.
 	
 	arr[0] = new A();
 	arr[2] = new A();
