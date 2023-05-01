@@ -23,19 +23,19 @@ int main()
 {
 	Derived derivedObject;
 
-	Base* pb = &derivedObject;
-	Derived* pd = &derivedObject;
+	Base* pBase = &derivedObject;
+	Derived* pDerived = &derivedObject;
 
-	pb->f();
-	pd->f();
+	pBase->f();
+	pDerived->f();
 
 	std::cout << "----------" << std::endl;
 
-	Base& bref = derivedObject;
-	Derived& dref = derivedObject;
+	Base& baseRef = derivedObject;
+	Derived& derivedRef = derivedObject;
 
-	bref.f();
-	dref.f();
+	baseRef.f();
+	derivedRef.f();
 }
 ```
 
@@ -66,19 +66,19 @@ int main()
 {
 	Derived derivedObject;
 
-	Base* pb = &derivedObject;
-	Derived* pd = &derivedObject;
+	Base* pBase = &derivedObject;
+	Derived* pDerived = &derivedObject;
 
-	pb->f();
-	pd->f();
+	pBase->f();
+	pDerived->f();
 
 	std::cout << "----------" << std::endl;
 
-	Base& bref = derivedObject;
-	Derived& dref = derivedObject;
+	Base& baseRef = derivedObject;
+	Derived& derivedRef = derivedObject;
 
-	bref.f();
-	dref.f();
+	baseRef.f();
+	derivedRef.f();
 }
 ```
 
@@ -157,23 +157,23 @@ int main()
 	SecondLevel secondLevelObject;
 	ThirdLevel thirdLevelObject;
 
-	Base* bp = nullptr;	
+	Base* pBase = nullptr;	
 
-	bp = &baseObject;
-	bp->f();
-	bp->g();
+	pBase = &baseObject;
+	pBase->f();
+	pBase->g();
 
-	bp = &firstLevelObject;
-	bp->f();
-	bp->g();
+	pBase = &firstLevelObject;
+	pBase->f();
+	pBase->g();
 
-	bp = &secondLevelObject;
-	bp->f();
-	bp->g();
+	pBase = &secondLevelObject;
+	pBase->f();
+	pBase->g();
 
-	bp = &thirdLevelObject;
-	bp->f();
-	bp->g();
+	pBase = &thirdLevelObject;
+	pBase->f();
+	pBase->g();
 }
 ```
 
