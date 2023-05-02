@@ -41,7 +41,7 @@ int main()
 
 ![alt_text](https://i.ibb.co/6n4jVbw/StaticSv.png)
 
-При статичното свързване типовете на pb, pd, bref, dref се определят **по време на компилация**. Те "приемат съответния тип, записан отляво на името" (Base*/Derived*, Base&/Derived&). Поради тази причина pb е от тип Base* и извиква функцията Base::f(), a pd е от тип Derived* и извиква функцията Derived::f().  Аналогично за референциите.  
+При статичното свързване типовете на pBase, pDerived, baseRef, derivedRef се определят **по време на компилация**. Те "приемат съответния тип, записан отляво на името" (Base*/Derived*, Base&/Derived&). Поради тази причина pb е от тип Base* и извиква функцията Base::f(), a pd е от тип Derived* и извиква функцията Derived::f().  Аналогично за референциите.  
 
 **Пример за *виртуална функция* и *динамично* свързване:**
 ```c++
@@ -84,98 +84,12 @@ int main()
 
 ![alt_text](https://i.ibb.co/G5FvnCm/Dynamic-Sv.png)
 
-При динамичното свързване типовете на pb, pd, bref, dref се определят **по време на изпълнение на програмата**. Те "приемат съответния тип, записан отдясно на името". Поради тази причина и четирите пъти се извиква функцията Derived::f().  
+При динамичното свързване типовете на pBase, pDerived, baseRef, derivedRef се определят **по време на изпълнение на програмата**. Те "приемат съответния тип, записан отдясно на името". Поради тази причина и четирите пъти се извиква функцията Derived::f().  
 
 **Статично свързване** - методът, който ще се извика, се определя по време на компилация и при всяко изпълнение е един и същ.  
 **Динамично свързване** - методът, който ще се извика, се определя по време на изпълнение на програмата.
 
 ---
-
-## Виртуални таблици
-
-```c++
-class Base
-{
-public:
-	virtual void f() const
-	{
-		std::cout << "Base::f()" << std::endl;
-	}
-	virtual void g() const
-	{
-		std::cout << "Base::g()" << std::endl;
-	}
-
-	void nonVirtual() const
-	{
-		std::cout << "Base::nonVirtual()" << std::endl;
-	}
-};
-
-class FirstLevel : public Base
-{
-public:
-	virtual void f() const override
-	{
-		std::cout << "FirstLevel::f()" << std::endl;
-	}
-	virtual void g() const override
-	{
-		std::cout << "FirstLevel::g()" << std::endl;
-	}
-	virtual void h() const
-	{
-		std::cout << "FirstLevel::h()" << std::endl;
-	}
-
-	void nonVirtual() const
-	{
-		std::cout << "FirstLevel::nonVirtual()" << std::endl;
-	}
-};
-class SecondLevel : public FirstLevel
-{
-public:
-	virtual void f() const override
-	{
-		std::cout << "SecondLevel::f()" << std::endl;
-	}
-};
-class ThirdLevel : public SecondLevel
-{
-public:
-	virtual void h() const override
-	{
-		std::cout << "ThirdLevel::h()" << std::endl;
-	}
-};
-
-int main()
-{
-	Base baseObject;
-	FirstLevel firstLevelObject;
-	SecondLevel secondLevelObject;
-	ThirdLevel thirdLevelObject;
-
-	Base* pBase = nullptr;	
-
-	pBase = &baseObject;
-	pBase->f();
-	pBase->g();
-
-	pBase = &firstLevelObject;
-	pBase->f();
-	pBase->g();
-
-	pBase = &secondLevelObject;
-	pBase->f();
-	pBase->g();
-
-	pBase = &thirdLevelObject;
-	pBase->f();
-	pBase->g();
-}
-```
 
 # Полиморфизъм - четвърти принцип на ООП
 
