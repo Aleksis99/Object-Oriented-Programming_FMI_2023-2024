@@ -66,6 +66,8 @@ void readStudents(Student*& students, std::ifstream& file, int& studentsCount)
 
         parseStudent(students[i], line);
     }
+
+    delete[] students;
 }
 
 void printStudent(Student s)
@@ -127,6 +129,8 @@ void saveToFile(const Student* students, int n, const char* fileName)
 int main()
 {
     Student* students;
+    students = nullptr;
+    
     int countStudents;
 
     std::ifstream file("students.csv");
