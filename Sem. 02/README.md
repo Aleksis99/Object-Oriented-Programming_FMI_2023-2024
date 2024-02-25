@@ -182,6 +182,76 @@ int main()
 }
 
  ```
+
+ ## Конструктори и деструктор при влагане на обекти.
+ 
+  ```c++
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+struct A
+{
+	A()
+	{
+		std::cout << "Constructor(default) of A" << std::endl;
+	}
+
+	~A()
+	{
+		std::cout << "Destructor of A" << std::endl;
+	}
+};
+
+struct B
+{
+	B()
+	{
+		std::cout << "Constructor(default) of B" << std::endl;
+	}
+
+	~B()
+	{
+		std::cout << "Destructor of B" << std::endl;
+	}
+};
+
+struct C
+{
+	C()
+	{
+		std::cout << "Constructor(default) of C" << std::endl;
+	}
+
+	~C()
+	{
+		std::cout << "Destructor of C" << std::endl;
+	}
+};
+
+struct X
+{
+	A first;
+	B second;
+	C obejectsArray[3];
+
+	X()
+	{ //calls Constructor(default) of A, Constructor(default) of B, Constructor(default) of C" (x3)
+		std::cout << "Constructor of X" << std::endl;
+	}
+	~X()
+	{
+		std::cout << "Destructor of X" << std::endl;
+	} //calls Destructor of C" (x3) , Destructor of B, Destructor of A
+
+};
+
+int main()
+{
+	X  obj; //Constructor of X
+} // Destructor of X
+
  ## Капсулация (encapsulation).
 Понякога искаме потребителите да **нямат достъп до всички член-данни и методи на даден клас**.
 Това е така, защото тяхната промяна може да доведе до **неочаквано поведение** на нашата програма. Принципът за **капсулация** ни помага като позволява да определим кои методи и атрибути може да използват потребителите на нашия клас.
